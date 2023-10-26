@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": " nodemon src/server.ts"
+    "start": " nodemon src/server.ts"
   },
   "author": "r",
   "license": "ISC",
