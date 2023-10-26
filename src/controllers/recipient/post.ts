@@ -12,7 +12,17 @@ export const postRecipient = async (req: Request, res: Response) => {
   try {
     const { status, username, groupId, accountId, dialogue } = req.body;
 
-    if (!status || !username || !groupId || !accountId) {
+    if (!accountId) {
+      return res.status(400).send("Недостающее количество параметров");
+    }
+
+    if (status === "spam") {
+      await wrapPromise(() =>
+        AccountDB.updateAccountRemainingTime(accountId, generateRandomTime())
+      );
+    }
+
+    if (!status || !username || !groupId) {
       return res.status(400).send("Недостающее количество параметров");
     }
 
@@ -34,10 +44,6 @@ export const postRecipient = async (req: Request, res: Response) => {
           AccountDB.updateAccountRemainingTime(accountId, generateRandomTime())
         ),
       ]);
-    } else if (status === "spam") {
-      await wrapPromise(() =>
-        AccountDB.updateAccountRemainingTime(accountId, generateRandomTime())
-      );
     } else {
       await wrapPromise(() =>
         UsernameDB.updateMessage(username, {
