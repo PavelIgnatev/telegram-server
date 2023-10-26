@@ -20,7 +20,7 @@ export const postRecipient = async (req: Request, res: Response) => {
       if (!dialogue || !dialogue.accountId || !dialogue.href) {
         return res.status(400).send("Недостающее количество параметров");
       }
-      
+
       await Promise.all([
         wrapPromise(() => DialogueDB.postDialogue(dialogue)),
         wrapPromise(() =>
@@ -34,6 +34,10 @@ export const postRecipient = async (req: Request, res: Response) => {
           AccountDB.updateAccountRemainingTime(accountId, generateRandomTime())
         ),
       ]);
+    } else if (status === "spam") {
+      await wrapPromise(() =>
+        AccountDB.updateAccountRemainingTime(accountId, generateRandomTime())
+      );
     } else {
       await wrapPromise(() =>
         UsernameDB.updateMessage(username, {
