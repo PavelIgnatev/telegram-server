@@ -20,6 +20,7 @@ export const postRecipient = async (req: Request, res: Response) => {
       await wrapPromise(() =>
         AccountDB.updateAccountRemainingTime(accountId, generateRandomTime())
       );
+      return res.status(200).send("OK");
     }
 
     if (!status || !username || !groupId) {
