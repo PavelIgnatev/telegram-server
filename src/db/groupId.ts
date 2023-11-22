@@ -12,6 +12,7 @@ class GroupIdService {
   private client: MongoClient | null = null;
   private db: Db | null = null;
   private collection: Collection<GroupId> | null = null;
+  private fullDocsFetchTime: number = Date.now();
 
   constructor() {
     this.connect = this.connect.bind(this);
@@ -65,8 +66,14 @@ class GroupIdService {
       return;
     }
 
-    if (!this.fullDocs) {
+    const cacheTimeout = 30 * 60 * 1000; // 30 minutes in milliseconds
+
+    if (
+      !this.fullDocs ||
+      Date.now() - (this.fullDocsFetchTime || 0) > cacheTimeout
+    ) {
       this.fullDocs = await this.collection.find().toArray();
+      this.fullDocsFetchTime = Date.now();
     }
 
     this.fullDocs = this.fullDocs.filter(
