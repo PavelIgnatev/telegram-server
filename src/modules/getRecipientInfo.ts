@@ -38,7 +38,7 @@ export const getRecipientInfo = async (accountId: string) => {
         console.log(
           `Username ${username} для groupId ${groupId} сгенерирован из локальной базы`
         );
-        return { username, groupId, prompts };
+        return { username, groupId, prompts, language };
       }
     }
   }
