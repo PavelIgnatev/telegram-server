@@ -6,7 +6,12 @@ import { processAccounts } from "../store";
 export const getRecipientInfo = async (accountId: string) => {
   console.log("Начал генерировать информацию о пользователе");
   const response = await GroupIdDB.getGroupId();
-  const { groupId = 12343207728, prompts, database = [] } = response ?? {};
+  const {
+    groupId = 12343207728,
+    prompts,
+    database = [],
+    language: varLanguage,
+  } = response ?? {};
   console.log(`Сгенерированный groupId: ${groupId}`);
   const [failedUsers, usersSender] = await Promise.all([
     UsernameDB.getFailedUsernames(),
@@ -64,7 +69,12 @@ export const getRecipientInfo = async (accountId: string) => {
         console.log(
           `Username ${username} для groupId ${groupId} сгенерирован из глобальной базы`
         );
-        return { username, groupId, prompts };
+        return {
+          username,
+          groupId,
+          prompts,
+          language: varLanguage || "РУССКИЙ",
+        };
       }
     } catch (e: any) {
       console.log(e.message);

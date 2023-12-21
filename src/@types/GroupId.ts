@@ -8,4 +8,5 @@ export interface GroupId {
   dateCreated?: Date;
   dateUpdated?: Date;
   current?: boolean;
+  language?: string;
 }
