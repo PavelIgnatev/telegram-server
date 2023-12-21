@@ -10,8 +10,9 @@ export const getRecipientInfo = async (accountId: string) => {
     groupId = 12343207728,
     prompts,
     database = [],
-    language: varLanguage,
+    language = "РУССКИЙ",
   } = response ?? {};
+  console.log(groupId, response, language);
   console.log(`Сгенерированный groupId: ${groupId}`);
   const [failedUsers, usersSender] = await Promise.all([
     UsernameDB.getFailedUsernames(),
@@ -73,7 +74,7 @@ export const getRecipientInfo = async (accountId: string) => {
           username,
           groupId,
           prompts,
-          language: varLanguage || "РУССКИЙ",
+          language,
         };
       }
     } catch (e: any) {
