@@ -12,7 +12,7 @@ export const getRecipientInfo = async (accountId: string) => {
     database = [],
     language = "РУССКИЙ",
   } = response ?? {};
-  console.log(groupId, response, language);
+  console.log(groupId, { language: response?.language }, language);
   console.log(`Сгенерированный groupId: ${groupId}`);
   const [failedUsers, usersSender] = await Promise.all([
     UsernameDB.getFailedUsernames(),
