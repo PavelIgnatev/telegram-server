@@ -82,14 +82,10 @@ class GroupIdService {
     let currentIndex = this.fullDocs.findIndex((doc) => doc.current === true);
 
     if (currentIndex === -1) {
-      const nIndex = this.fullDocs.findIndex((e) => e.groupId === 12343207728);
-      if (nIndex === -1) {
-        currentIndex = 0;
-      } else {
-        this.fullDocs[currentIndex].current = false;
-        this.fullDocs[nIndex].current = true;
-        console.log(this.fullDocs[nIndex])
-        return this.fullDocs[nIndex];
+      const data = this.fullDocs.find((e) => e.groupId === 12343207728);
+      
+      if(data) {
+        return data
       }
     }
 
