@@ -87,7 +87,7 @@ class GroupIdService {
 
     this.fullDocs[currentIndex].current = false;
     const nextIndex = (currentIndex + 1) % this.fullDocs.length;
-    console.log(nextIndex)
+    console.log(nextIndex, this.fullDocs[nextIndex])
     this.fullDocs[nextIndex].current = true;
 
     return this.fullDocs[nextIndex];
